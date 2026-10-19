@@ -587,14 +587,15 @@ select option{background:#fbf6ea;color:var(--ink)}
   /* add to calendar (.ics) */
   var ics=$('icsBtn');ics.style.display='inline-block';
   ics.addEventListener('click',function(){
-    var t=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Roshan and Hana//Wedding//EN','BEGIN:VEVENT',
-      'UID:roshan-hana-reception-20270103@invitation','DTSTAMP:20261017T000000Z','DTSTART:20270103T070000Z','DTEND:20270103T110000Z',
-      'SUMMARY:Roshan & Hana – Wedding Reception','LOCATION:Munnas Convention Center\\, Koyilandy\\, Kerala\\, India',
-      'DESCRIPTION:Wedding reception of Roshan & Hana. We look forward to celebrating with you.',
-      'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Wedding reception tomorrow','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
-    var a=d.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/calendar;charset=utf-8'}));
-    a.download='Roshan-Hana-Reception.ics';d.body.appendChild(a);a.click();a.remove();
-  });
+  var t=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Roshan and Hana//Wedding//EN','BEGIN:VEVENT',
+    'UID:roshan-hana-reception-20270103@invitation','DTSTAMP:20261017T000000Z','DTSTART:20270103T070000Z','DTEND:20270103T093000Z',
+    'SUMMARY:Roshan & Hana – Wedding Reception','LOCATION:Munnas Convention Center\\, Koyilandy\\, Kerala\\, India',
+    'DESCRIPTION:Wedding reception of Roshan & Hana.\\nWe look forward to celebrating with you.',
+    'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Wedding reception tomorrow','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n')+'\r\n';
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/calendar;charset=utf-8'}));
+  a.download='Roshan-Hana-Reception.ics';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+});
 
   /* share: only when the page is opened from a web link (not from a saved file) */
   if(/^https?:$/.test(location.protocol)){
